@@ -11,31 +11,34 @@ import QuestionsListItem from './questions-list-item'
 import QuestionsTabPanel from './questions-tab-panel'
 import QuestionsTab from './questions-tab'
 
-const QuestionsList = React.createClass({
-  displayName: 'QuestionsList',
+const QuestionsResultsList = React.createClass({
+  displayName: 'QuestionsResultsList',
 
   mixins: [
     Reflux.connect(questionsStore, 'questions')
   ],
 
   propTypes: {
+    query: React.PropTypes.string.isRequired,
     sort: React.PropTypes.string
   },
 
   getDefaultProps () {
     return {
-      sort: 'activity'
+      sort: 'relevance'
     }
   },
 
   componentWillMount () {
-    questionsActions.fetch({
+    questionsActions.search({
+      query: this.props.query,
       sort: this.props.sort
     })
   },
 
   componentWillReceiveProps (props) {
-    questionsActions.fetch({
+    questionsActions.search({
+      query: props.query,
       sort: props.sort
     })
   },
@@ -45,16 +48,14 @@ const QuestionsList = React.createClass({
     let items = questions ? questions.getIn(['data', 'items']) : null
 
     return (
-      <div className='questions-list'>
+      <div className='questions-results-list'>
         <QuestionsSearchForm />
 
         <QuestionsTabPanel>
+          <QuestionsTab value='relevance' label='Relevance' />
           <QuestionsTab value='activity' label='Active' />
           <QuestionsTab value='creation' label='Newest' />
-          <QuestionsTab value='votes' label='Most Votes' />
-          <QuestionsTab value='hot' label='Hot' />
-          <QuestionsTab value='week' label='Week' />
-          <QuestionsTab value='month' label='Month' />
+          <QuestionsTab value='votes' label='Votes' />
         </QuestionsTabPanel>
 
         {!items ? null : items.map(item => {
@@ -67,4 +68,4 @@ const QuestionsList = React.createClass({
   }
 })
 
-export default QuestionsList
+export default QuestionsResultsList

@@ -46,7 +46,20 @@ export function authenticate () {
 export function fetchQuestions (params) {
   let options = Object.assign({}, params)
 
+  return apiRequest('/questions')
+    .query({ sort: options.sort })
+    .then(res => res.body)
+}
+
+export function searchQuestions (params) {
+  let options = Object.assign({}, params)
+
   return apiRequest('/search/advanced')
-    .query({ q: options.query })
+
+    .query({
+      q: options.query,
+      sort: options.sort
+    })
+
     .then(res => res.body)
 }

@@ -15,8 +15,10 @@ const QuestionsSearchForm = React.createClass({
   ],
 
   getInitialState () {
+    let questionsStoreState = questionsStore.getInitialState()
+
     return {
-      query: questionsStore.getInitialState().get('query')
+      query: questionsStoreState.get('query')
     }
   },
 
@@ -28,7 +30,7 @@ const QuestionsSearchForm = React.createClass({
 
   onSubmit (e) {
     e.preventDefault()
-    this.transitionTo('questions', {}, { q: this.state.query })
+    this.transitionTo('search', {}, { q: this.state.query })
   },
 
   onQueryChange (e) {
@@ -41,7 +43,9 @@ const QuestionsSearchForm = React.createClass({
     return (
       <form onSubmit={this.onSubmit}>
         <div>
-          <input type='search' value={this.state.query} onChange={this.onQueryChange} />
+          <input type='search' value={this.state.query} required
+            onChange={this.onQueryChange} />
+
           <button type='submit'>Search</button>
         </div>
       </form>

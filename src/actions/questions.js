@@ -2,12 +2,14 @@
 
 import Reflux from 'reflux'
 
-import { fetchQuestions } from '../services/stack-exchange'
+import { fetchQuestions, searchQuestions } from '../services/stack-exchange'
 
 const actions = Reflux.createActions({
-  fetch: { asyncResult: true }
+  fetch: { asyncResult: true },
+  search: { asyncResult: true }
 })
 
 actions.fetch.listenAndPromise(fetchQuestions)
+actions.search.listenAndPromise(searchQuestions)
 
 export default actions

@@ -17,19 +17,21 @@ const store = Reflux.createStore({
   init () {
     this.questions = null
     this.query = null
+    this.sort = null
     this.isLoading = false
   },
 
   fetch (params) {
     let options = Object.assign({}, params)
     this.isLoading = true
-    this.query = options.query
+    this.query = null
+    this.sort = options.sort
     this.refreshState()
   },
 
   fetchCompleted (data) {
     this.isLoading = false
-    this.questions = data
+    this.questions = Immutable.fromJS(data)
     this.refreshState()
   },
 
@@ -39,10 +41,27 @@ const store = Reflux.createStore({
     this.refreshState()
   },
 
+  search (params) {
+    let options = Object.assign({}, params)
+    this.isLoading = true
+    this.query = options.query
+    this.sort = options.sort
+    this.refreshState()
+  },
+
+  searchCompleted (data) {
+    this.fetchCompleted(data)
+  },
+
+  searchFailed () {
+    this.fetchFailed()
+  },
+
   getState () {
     return new Map({
-      data: Immutable.fromJS(this.questions),
+      data: this.questions,
       query: this.query,
+      sort: this.sort,
       isLoading: this.isLoading
     })
   }
