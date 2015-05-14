@@ -5,8 +5,11 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
+var cssLoaderBase = 'css?sourceMap!autoprefixer?browsers=last 2 versions'
+
 module.exports = {
   context: path.join(__dirname, 'src'),
+  devtool: 'source-map',
 
   entry: {
     app: './index'
@@ -26,7 +29,11 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!autoprefixer?browsers=last 2 versions!sass')
+        loader: ExtractTextPlugin.extract('style', cssLoaderBase + '!sass?sourceMap')
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', cssLoaderBase)
       }
     ]
   },

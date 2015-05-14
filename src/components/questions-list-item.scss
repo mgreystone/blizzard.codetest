@@ -1,0 +1,14 @@
+@import '~bourbon/app/assets/stylesheets/bourbon';
+
+.questions-list-item {
+  @include display(flex);
+  @include align-items(stretch);
+  @include flex-direction(row);
+  @include justify-content(flex-start);
+
+  margin: 1em 0;
+
+  .title-and-tags {
+    @include flex(1)
+  }
+}

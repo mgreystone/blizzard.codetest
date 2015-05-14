@@ -3,12 +3,13 @@
 var gulp = require('gulp')
 var gutil = require('gulp-util')
 var ghPages = require('gulp-gh-pages')
-var clean = require('gulp-clean')
+var del = require('del')
 var path = require('path')
+var fs = require('fs')
 var webpack = require('webpack')
 var config = require('./webpack.config.js')
 
-gulp.task('webpack', ['clean'], function (callback) {
+gulp.task('webpack', function (callback) {
   webpack(config, function (err, stats) {
     if (err) {
       throw new gutil.PluginError('webpack', err)
@@ -22,6 +23,7 @@ gulp.task('webpack', ['clean'], function (callback) {
 
 gulp.task('webpack-dev-server', function (callback) {
   var WebpackDevServer = require('webpack-dev-server')
+
   var compiler = webpack(config)
 
   new WebpackDevServer(compiler, {
@@ -37,12 +39,17 @@ gulp.task('webpack-dev-server', function (callback) {
     })
 })
 
-gulp.task('deploy', ['webpack'], function () {
+gulp.task('deploy', ['build'], function () {
   return gulp.src(path.join(__dirname, 'dist/**/*'))
     .pipe(ghPages())
 })
 
-gulp.task('clean', function () {
-  return gulp.src(path.join(__dirname, 'dist'), { read: false })
-    .pipe(clean())
+gulp.task('clean', function (callback) {
+  del([ path.join(__dirname, 'dist') ])
 })
+
+gulp.task('make-blank', function () {
+  fs.closeSync(fs.openSync(path.join(__dirname, 'dist/blank.txt'), 'w'))
+})
+
+gulp.task('build', ['webpack', 'make-blank'])
