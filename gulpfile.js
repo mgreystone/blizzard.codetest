@@ -6,6 +6,7 @@ var ghPages = require('gulp-gh-pages')
 var del = require('del')
 var path = require('path')
 var fs = require('fs')
+var mkdirp = require('mkdirp')
 var webpack = require('webpack')
 var config = require('./webpack.config.js')
 
@@ -46,10 +47,20 @@ gulp.task('deploy', ['build'], function () {
 
 gulp.task('clean', function (callback) {
   del([ path.join(__dirname, 'dist') ])
+  callback()
 })
 
-gulp.task('make-blank', function () {
-  fs.closeSync(fs.openSync(path.join(__dirname, 'dist/blank.txt'), 'w'))
+gulp.task('make-blank', function (callback) {
+  var dist = path.join(__dirname, 'dist')
+
+  mkdirp(dist, function (err) {
+    if (err) {
+      throw new gutil.PluginError('make-blank', err)
+    }
+
+    fs.closeSync(fs.openSync(path.join(dist, 'blank.txt'), 'w'))
+    callback()
+  })
 })
 
 gulp.task('build', ['webpack', 'make-blank'])
