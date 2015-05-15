@@ -1,0 +1,19 @@
+@import '../styles/variables';
+
+.markdown {
+  *:first-child {
+    margin: {
+      top: 0;
+    }
+  }
+
+  pre {
+    padding: 0 5px;
+    background: $color-panel;
+    line-height: 1.5;
+
+    font: {
+      size: 0.8em;
+    }
+  }
+}

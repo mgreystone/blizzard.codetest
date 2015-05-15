@@ -6,3 +6,4 @@ export const SE_CHANNEL_URL = 'http://mgreystone.github.io/blizzard.codetest/bla
 export const SE_API_PREFIX = 'https://api.stackexchange.com'
 export const SE_SITE = 'stackoverflow.com'
 export const SE_FILTER_QUESTIONS = 'vqc7K'
+export const SE_FILTER_QUESTION_DETAILS = 'YGk-WepcCWi*0'

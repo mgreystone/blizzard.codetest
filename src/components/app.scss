@@ -1,4 +1,4 @@
-@import 'variables';
+@import '../styles/variables';
 
 body {
   background: #010e16;
@@ -20,6 +20,14 @@ a {
 
   &:hover {
     color: #fff;
+  }
+}
+
+h1 {
+  color: #fff;
+
+  text: {
+    transform: uppercase;
   }
 }
 

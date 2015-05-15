@@ -3,6 +3,7 @@
 import './questions-list-item.scss'
 
 import React from 'react'
+import { Link } from 'react-router'
 
 import { ImmutableIterable } from '../prop-types'
 
@@ -18,6 +19,7 @@ const QuestionsListItem = React.createClass({
   render () {
     let item = this.props.question
 
+    let questionId = item.get('question_id')
     let title = item.get('title')
     let votes = item.get('score')
     let answers = item.get('answer_count')
@@ -31,7 +33,9 @@ const QuestionsListItem = React.createClass({
 
         <div className='title-and-tags'>
           <div className='title'>
-            {title}
+            <Link to='question-details' params={{ questionId }}>
+              {title}
+            </Link>
           </div>
         </div>
       </div>

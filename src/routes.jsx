@@ -7,11 +7,13 @@ import App from './components/app'
 
 import QuestionsRoute from './routes/questions'
 import SearchRoute from './routes/search'
+import QuestionDetailsRoute from './routes/question-details'
 
 const routes = (
   <Route handler={App}>
     <DefaultRoute name='questions' handler={QuestionsRoute} />
     <Route name='search' path='search' handler={SearchRoute} />
+    <Route name='question-details' path='question/:questionId' handler={QuestionDetailsRoute} />
   </Route>
 )
 

@@ -1,0 +1,63 @@
+@import 'bourbon';
+@import '../styles/variables';
+
+%question-or-answer {
+  @include display(flex);
+  @include align-items(start);
+  @include flex-direction(row);
+  @include justify-content(flex-start);
+
+  .score {
+    width: 1em;
+    margin: 0 0.25em 0 0;
+    color: #fff;
+    line-height: 1;
+
+    font: {
+      weight: bold;
+      size: 3em;
+    }
+
+    text: {
+      align: center;
+    }
+  }
+
+  .content {
+    @include flex(1);
+  }
+}
+
+.question-details {
+  h1 {
+    margin: {
+      top: 0;
+    }
+  }
+
+  .question {
+    @extend %question-or-answer;
+  }
+
+  .answer {
+    @extend %question-or-answer;
+
+    padding: {
+      top: 1ex;
+    }
+
+    border: {
+      top: $border-width $border-style $border-color;
+    }
+
+    .score {
+      .check {
+        color: #0c0;
+
+        font: {
+          size: 0.75em;
+        }
+      }
+    }
+  }
+}

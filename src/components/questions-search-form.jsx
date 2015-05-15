@@ -15,7 +15,7 @@ const QuestionsSearchForm = React.createClass({
   ],
 
   propTypes: {
-    showButton: React.PropTypes.boolean
+    showButton: React.PropTypes.bool
   },
 
   getDefaultProps () {

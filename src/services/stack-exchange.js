@@ -11,7 +11,8 @@ import {
   SE_CHANNEL_URL,
   SE_API_PREFIX,
   SE_SITE,
-  SE_FILTER_QUESTIONS
+  SE_FILTER_QUESTIONS,
+  SE_FILTER_QUESTION_DETAILS
 }
 from '../config'
 
@@ -51,29 +52,28 @@ export function authenticate () {
   })
 }
 
-export function fetchQuestions (params) {
-  let options = Object.assign({}, params)
+function getQuestionsParams (options) {
+  return {
+    sort: options.sort,
+    filter: options.withDetails ? SE_FILTER_QUESTION_DETAILS : SE_FILTER_QUESTIONS
+  }
+}
 
+export function fetchQuestions (options) {
   return apiRequest('/questions')
-
-    .query({
-      sort: options.sort,
-      filter: SE_FILTER_QUESTIONS
-    })
-
+    .query(getQuestionsParams(options))
     .then(res => res.body)
 }
 
-export function searchQuestions (params) {
-  let options = Object.assign({}, params)
-
+export function searchQuestions (options) {
   return apiRequest('/search/advanced')
+    .query(getQuestionsParams(options))
+    .query('q', options.query)
+    .then(res => res.body)
+}
 
-    .query({
-      q: options.query,
-      sort: options.sort,
-      filter: SE_FILTER_QUESTIONS
-    })
-
+export function fetchQuestionById (id, options) {
+  return apiRequest('/questions/' + id)
+    .query(getQuestionsParams(options))
     .then(res => res.body)
 }
