@@ -1,5 +1,7 @@
 'use strict'
 
+import './questions-results-list.scss'
+
 import React from 'react'
 import Reflux from 'reflux'
 
@@ -58,11 +60,13 @@ const QuestionsResultsList = React.createClass({
           <QuestionsTab value='votes' label='Votes' />
         </QuestionsTabPanel>
 
-        {!items ? null : items.map(item => {
-          return (
-            <QuestionsListItem key={item.get('question_id')} question={item} />
-          )
-        })}
+        <div className='list-container'>
+          {!items ? null : items.map(item => {
+            return (
+              <QuestionsListItem key={item.get('question_id')} question={item} />
+            )
+          })}
+        </div>
       </div>
     )
   }

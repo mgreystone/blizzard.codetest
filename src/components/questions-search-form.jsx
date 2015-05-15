@@ -14,6 +14,16 @@ const QuestionsSearchForm = React.createClass({
     Reflux.listenTo(questionsStore, 'onQuestionsChange')
   ],
 
+  propTypes: {
+    showButton: React.PropTypes.boolean
+  },
+
+  getDefaultProps () {
+    return {
+      showButton: false
+    }
+  },
+
   getInitialState () {
     let questionsStoreState = questionsStore.getInitialState()
 
@@ -41,12 +51,12 @@ const QuestionsSearchForm = React.createClass({
 
   render () {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className='questions-search-form' onSubmit={this.onSubmit}>
         <div>
           <input type='search' value={this.state.query} required
-            onChange={this.onQueryChange} />
+            placeholder='Search' onChange={this.onQueryChange} />
 
-          <button type='submit'>Search</button>
+          { this.props.showButton ? <button type='submit'>Search</button> : null }
         </div>
       </form>
     )

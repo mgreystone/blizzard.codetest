@@ -1,0 +1,44 @@
+@import 'variables';
+
+body {
+  background: #010e16;
+}
+
+a {
+  &:link,
+  &:visited,
+  &:hover {
+    text: {
+      decoration: none;
+    }
+  }
+
+  &:link,
+  &:visited {
+    color: #47c3ff;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.app {
+  font: normal 16px/1.8 "MuseoSans-500", "century gothic", arial, sans-serif;
+  color: #a6c9e3;
+
+  .main-outer {
+    min-height: 846px;
+    background: url('../assets/bg-main.jpg') no-repeat center top;
+
+    box: {
+      shadow: 0 0 5px #000;
+    }
+  }
+
+  .main {
+    max-width: $app-max-width;
+    margin: 0 auto;
+    padding: 35px 0;
+  }
+}

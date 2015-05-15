@@ -1,0 +1,5 @@
+@import 'questions-list';
+
+.questions-results-list {
+  @extend .questions-list;
+}

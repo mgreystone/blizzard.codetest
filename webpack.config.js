@@ -29,11 +29,21 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', cssLoaderBase + '!sass?sourceMap')
+        loader: ExtractTextPlugin.extract('style', cssLoaderBase + '!sass?sourceMap' +
+          '&includePaths[]=' + path.resolve(__dirname, 'node_modules/bourbon/app/assets/stylesheets')) +
+          '&includePaths[]=' + path.resolve(__dirname, 'src/styles')
       },
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', cssLoaderBase)
+      },
+      {
+        test: /\.png$/,
+        loader: 'url?limit=10000&mimetype=image/png'
+      },
+      {
+        test: /\.jpg$/,
+        loader: 'url?limit=10000&mimetype=image/jpg'
       }
     ]
   },

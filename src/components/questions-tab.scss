@@ -1,0 +1,22 @@
+@import 'variables';
+
+.questions-tab {
+  a {
+    display: block;
+    margin: 0 10px 0 0;
+    padding: 10px 25px;
+
+    font: {
+      weight: bold;
+    }
+
+    text: {
+      transform: uppercase;
+    }
+
+    &.tab-active {
+      background: $color-panel;
+      color: #fff;
+    }
+  }
+}

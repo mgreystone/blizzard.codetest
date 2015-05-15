@@ -1,12 +1,13 @@
 'use strict'
 
+import './questions-list.scss'
+
 import React from 'react'
 import Reflux from 'reflux'
 
 import questionsStore from '../stores/questions'
 import questionsActions from '../actions/questions'
 
-import QuestionsSearchForm from './questions-search-form'
 import QuestionsListItem from './questions-list-item'
 import QuestionsTabPanel from './questions-tab-panel'
 import QuestionsTab from './questions-tab'
@@ -46,8 +47,6 @@ const QuestionsList = React.createClass({
 
     return (
       <div className='questions-list'>
-        <QuestionsSearchForm />
-
         <QuestionsTabPanel>
           <QuestionsTab value='activity' label='Active' />
           <QuestionsTab value='creation' label='Newest' />
@@ -57,11 +56,13 @@ const QuestionsList = React.createClass({
           <QuestionsTab value='month' label='Month' />
         </QuestionsTabPanel>
 
-        {!items ? null : items.map(item => {
-          return (
-            <QuestionsListItem key={item.get('question_id')} question={item} />
-          )
-        })}
+        <div className='list-container'>
+          {!items ? null : items.map(item => {
+            return (
+              <QuestionsListItem key={item.get('question_id')} question={item} />
+            )
+          })}
+        </div>
       </div>
     )
   }

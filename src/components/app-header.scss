@@ -1,0 +1,67 @@
+@import 'bourbon';
+@import 'variables';
+@import 'classes';
+
+$logo-width: 105px;
+
+.app-header {
+  border: {
+    bottom: 1px solid #01314f;
+  }
+
+  box: {
+    shadow: 0 1px 10px #000;
+  }
+
+  background: {
+    color: #021a2f;
+    image: url('../assets/bg-header.jpg');
+    repeat: repeat-x;
+    position: top center;
+  }
+
+  .outer {
+    background: {
+      image: url('../assets/bg-header-texture.png');
+      repeat: no-repeat;
+      position: top center;
+    }
+  }
+
+  .inner {
+    @include display(flex);
+    @include align-items(center);
+    @include flex-direction(row);
+    @include justify-content(flex-start);
+
+    max-width: $app-max-width;
+    margin: 0 auto;
+
+    .app-title {
+      width: $logo-width;
+      margin: 0;
+
+      a {
+        @extend %hide-text;
+
+        display: block;
+        height: 50px;
+        background: url('../assets/logo.png') no-repeat 0 center;
+
+        &:hover {
+          background: {
+            position: -$logo-width center;
+          }
+        }
+      }
+    }
+
+    .search-container {
+      @include flex(1);
+
+      text: {
+        align: right;
+      }
+    }
+  }
+}

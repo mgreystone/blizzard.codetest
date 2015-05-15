@@ -1,32 +1,27 @@
 'use strict'
 
 import 'normalize.css/normalize.css'
+import './app.scss'
 
 import React from 'react'
-import Reflux from 'reflux'
 import { RouteHandler } from 'react-router'
 
-import authenticationStore from '../stores/authentication'
-import authenticationActions from '../actions/authentication'
+import AppHeader from './app-header'
+import Banner from './banner'
 
 const App = React.createClass({
   displayName: 'App',
 
-  mixins: [
-    Reflux.connect(authenticationStore, 'authentication')
-  ],
-
-  login () {
-    authenticationActions.authenticate()
-  },
-
   render () {
-    let isAuthenticated = this.state.authentication.get('isAuthenticated')
-
     return (
-      <div>
-        { isAuthenticated ? 'Yay' : <button onClick={this.login}>Login</button> }
-        <RouteHandler />
+      <div className='app'>
+        <AppHeader />
+        <Banner />
+        <div className='main-outer'>
+          <div className='main'>
+            <RouteHandler />
+          </div>
+        </div>
       </div>
     )
   }
