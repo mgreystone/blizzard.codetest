@@ -5,7 +5,15 @@ import Promise from 'bluebird'
 import request from 'superagent-bluebird-promise'
 import prefixify from 'superagent-prefix'
 
-import { SE_CLIENT_ID, SE_KEY, SE_CHANNEL_URL, SE_API_PREFIX, SE_SITE } from '../config'
+import {
+  SE_CLIENT_ID,
+  SE_KEY,
+  SE_CHANNEL_URL,
+  SE_API_PREFIX,
+  SE_SITE,
+  SE_FILTER_QUESTIONS
+}
+from '../config'
 
 const prefix = prefixify(SE_API_PREFIX)
 
@@ -47,7 +55,12 @@ export function fetchQuestions (params) {
   let options = Object.assign({}, params)
 
   return apiRequest('/questions')
-    .query({ sort: options.sort })
+
+    .query({
+      sort: options.sort,
+      filter: SE_FILTER_QUESTIONS
+    })
+
     .then(res => res.body)
 }
 
@@ -58,7 +71,8 @@ export function searchQuestions (params) {
 
     .query({
       q: options.query,
-      sort: options.sort
+      sort: options.sort,
+      filter: SE_FILTER_QUESTIONS
     })
 
     .then(res => res.body)

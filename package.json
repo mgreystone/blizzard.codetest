@@ -9,7 +9,6 @@
     "bluebird": "^2.9.25",
     "bourbon": "^4.2.3",
     "classnames": "^2.1.1",
-    "html-entities": "^1.1.2",
     "immutable": "^3.7.2",
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
