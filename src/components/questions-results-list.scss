@@ -1,5 +1,5 @@
-@import 'questions-list';
+@import '../styles/classes';
 
 .questions-results-list {
-  @extend .questions-list;
+  @extend %questions-list;
 }

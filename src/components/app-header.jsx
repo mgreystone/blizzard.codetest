@@ -4,6 +4,7 @@ import './app-header.scss'
 
 import React from 'react'
 
+import PrimaryNav from './primary-nav'
 import QuestionsSearchForm from './questions-search-form'
 
 const AppHeader = React.createClass({
@@ -17,6 +18,8 @@ const AppHeader = React.createClass({
             <h1 className='app-title'>
               <a href='http://blizzard.com'>Bizzard Entertainment</a>
             </h1>
+
+            <PrimaryNav />
 
             <div className='search-container'>
               <QuestionsSearchForm />

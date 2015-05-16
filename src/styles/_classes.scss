@@ -1,4 +1,5 @@
 @import 'bourbon';
+@import 'variables';
 
 %hide-text {
   @include hide-text;
@@ -6,4 +7,15 @@
 
 %clearfix {
   @include clearfix;
+}
+
+%left-line {
+  background: url('../assets/nav-line.gif') repeat-y left top;
+}
+
+%questions-list {
+  .list-container {
+    background: $color-panel;
+    padding: 10px;
+  }
 }

@@ -7,19 +7,20 @@
   @include flex-direction(row);
   @include justify-content(flex-start);
 
-  .score {
-    width: 1em;
-    margin: 0 0.25em 0 0;
-    color: #fff;
-    line-height: 1;
+  line-height: 1.3;
 
-    font: {
-      weight: bold;
-      size: 3em;
-    }
+  .controls {
+    margin: 0 1em 0 0;
+    color: #fff;
 
     text: {
       align: center;
+    }
+
+    .score {
+      font: {
+        size: 2em;
+      }
     }
   }
 
@@ -50,12 +51,12 @@
       top: $border-width $border-style $border-color;
     }
 
-    .score {
+    .controls {
       .check {
         color: #0c0;
 
         font: {
-          size: 0.75em;
+          size: 2em;
         }
       }
     }

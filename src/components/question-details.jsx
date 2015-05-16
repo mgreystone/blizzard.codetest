@@ -40,8 +40,8 @@ const QuestionDetails = React.createClass({
         <h1>{title}</h1>
 
         <div className='question'>
-          <div className='score'>
-            {score}
+          <div className='controls'>
+            <div className='score'>{score}</div>
           </div>
 
           <div className='content'>
@@ -59,9 +59,9 @@ const QuestionDetails = React.createClass({
 
           return (
             <div key={id} className='answer'>
-              <div className='score'>
-                {score}
-                {isAccepted ? <span className='check'><Icon glyph='check' /></span> : null}
+              <div className='controls'>
+                <div className='score'>{score}</div>
+                {isAccepted ? <div className='check'><Icon glyph='check' /></div> : null}
               </div>
 
               <div className='content'>

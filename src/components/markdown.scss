@@ -16,4 +16,19 @@
       size: 0.8em;
     }
   }
+
+  img {
+    max-width: 100%;
+  }
+
+  hr {
+    color: transparent;
+
+    border: {
+      top: none;
+      right: none;
+      bottom: $border-width $border-style $border-color;
+      left: none;
+    }
+  }
 }

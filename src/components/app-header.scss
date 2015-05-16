@@ -30,7 +30,7 @@ $logo-width: 105px;
 
   .inner {
     @include display(flex);
-    @include align-items(center);
+    @include align-items(stretch);
     @include flex-direction(row);
     @include justify-content(flex-start);
 
@@ -38,6 +38,8 @@ $logo-width: 105px;
     margin: 0 auto;
 
     .app-title {
+      @extend %left-line;
+
       width: $logo-width;
       margin: 0;
 
@@ -46,6 +48,7 @@ $logo-width: 105px;
 
         display: block;
         height: 50px;
+        padding: 5px;
         background: url('../assets/logo.png') no-repeat 0 center;
 
         &:hover {
@@ -58,6 +61,7 @@ $logo-width: 105px;
 
     .search-container {
       @include flex(1);
+      @include align-self(center);
 
       text: {
         align: right;
