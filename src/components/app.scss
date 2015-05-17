@@ -23,6 +23,12 @@ a {
   }
 }
 
+.link {
+  @extend a:link;
+
+  cursor: pointer;
+}
+
 h1 {
   color: #fff;
 
