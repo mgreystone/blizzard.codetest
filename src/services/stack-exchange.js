@@ -18,6 +18,9 @@ from '../config'
 
 const prefix = prefixify(SE_API_PREFIX)
 
+let accessToken = null
+let expirationDate = null
+
 const init = new Promise(resolve => {
   SE.init({
     clientId: SE_CLIENT_ID,
@@ -44,6 +47,8 @@ export function authenticate () {
         networkUsers: true,
 
         success (data) {
+          accessToken = data.accessToken
+          expirationDate = data.expirationDate
           resolve(data)
         },
 
@@ -53,6 +58,13 @@ export function authenticate () {
       })
     })
   })
+}
+
+export function revoke () {
+  // TODO This is crap... This token needs to be actually revoked, not merely forgotten
+  accessToken = null
+  expirationDate = null
+  return Promise.resolve()
 }
 
 function getQuestionsParams (options) {

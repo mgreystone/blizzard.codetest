@@ -20,8 +20,12 @@ const PrimaryNav = React.createClass({
     authenticationActions.authenticate()
   },
 
+  onClickLogout () {
+    authenticationActions.revoke()
+  },
+
   render () {
-    let isAuthenticated = !!this.state.authentication.accountId
+    let isAuthenticated = this.state.authentication.get('isAuthenticated')
 
     return (
       <nav className='primary-nav'>
@@ -33,9 +37,9 @@ const PrimaryNav = React.createClass({
             <Link to='tags'>Tags</Link>
           </li>
           <li>
-            {isAuthenticated ?
+            {!isAuthenticated ?
               <span className='link' onClick={this.onClickLogin}>Login</span> :
-              <span className='link'>Logout</span>}
+              <span className='link' onClick={this.onClickLogout}>Logout</span>}
           </li>
         </ul>
       </nav>

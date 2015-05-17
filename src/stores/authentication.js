@@ -29,6 +29,12 @@ const store = Reflux.createStore({
     // TODO
   },
 
+  onRevoke () {
+    this.accessToken = null
+    this.accountId = null
+    this.refreshState()
+  },
+
   getState () {
     return new Map({
       isAuthenticated: this.accessToken !== null,
