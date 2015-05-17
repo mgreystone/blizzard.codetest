@@ -1,5 +1,6 @@
-@import '../styles/classes';
+@import '../styles/variables';
 
 .questions-list {
-  @extend %questions-list;
+  background: $color-panel;
+  padding: 10px;
 }

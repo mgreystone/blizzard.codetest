@@ -4,51 +4,47 @@ import React from 'react'
 
 import questionsActions from '../actions/questions'
 
-import QuestionsSearchForm from './questions-search-form'
 import QuestionsTabPanel from './questions-tab-panel'
 import QuestionsTab from './questions-tab'
 import QuestionsList from './questions-list'
 
-const QuestionsResultsList = React.createClass({
-  displayName: 'QuestionsResultsList',
+const QuestionsListHome = React.createClass({
+  displayName: 'QuestionsListHome',
 
   propTypes: {
-    query: React.PropTypes.string.isRequired,
     sort: React.PropTypes.string
   },
 
   getDefaultProps () {
     return {
-      sort: 'relevance'
+      sort: 'activity'
     }
   },
 
   componentWillMount () {
-    questionsActions.search({
-      query: this.props.query,
+    questionsActions.fetch({
       sort: this.props.sort
     })
   },
 
   componentWillReceiveProps (props) {
-    questionsActions.search({
-      query: props.query,
+    questionsActions.fetch({
       sort: props.sort
     })
   },
 
   render () {
     return (
-      <div className='questions-results-list'>
-        <h1 className='page-title'>Search</h1>
-
-        <QuestionsSearchForm />
+      <div className='questions-list-home'>
+        <h1 className='page-title'>All Questions</h1>
 
         <QuestionsTabPanel>
-          <QuestionsTab value='relevance' label='Relevance' />
           <QuestionsTab value='activity' label='Active' />
           <QuestionsTab value='creation' label='Newest' />
-          <QuestionsTab value='votes' label='Votes' />
+          <QuestionsTab value='votes' label='Most Votes' />
+          <QuestionsTab value='hot' label='Hot' />
+          <QuestionsTab value='week' label='Week' />
+          <QuestionsTab value='month' label='Month' />
         </QuestionsTabPanel>
 
         <QuestionsList />
@@ -57,4 +53,4 @@ const QuestionsResultsList = React.createClass({
   }
 })
 
-export default QuestionsResultsList
+export default QuestionsListHome

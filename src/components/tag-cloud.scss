@@ -1,0 +1,23 @@
+@import 'bourbon';
+
+.tag-cloud {
+  ul {
+    @include display(flex);
+    @include align-items(stretch);
+    @include flex-direction(row);
+    @include justify-content(flex-start);
+    @include flex-wrap(wrap);
+
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+
+    li {
+      @include flex(1);
+
+      min-width: 300px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

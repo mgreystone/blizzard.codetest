@@ -31,7 +31,10 @@ const init = new Promise(resolve => {
 })
 
 function apiRequest (resource) {
-  return request(resource).use(prefix).query({ site: SE_SITE })
+  return request(resource)
+    .use(prefix)
+    .set('Accept', 'application/json')
+    .query({ site: SE_SITE })
 }
 
 export function authenticate () {
@@ -68,12 +71,23 @@ export function fetchQuestions (options) {
 export function searchQuestions (options) {
   return apiRequest('/search/advanced')
     .query(getQuestionsParams(options))
-    .query('q', options.query)
+    .query({ q: options.query })
     .then(res => res.body)
 }
 
 export function fetchQuestionById (id, options) {
-  return apiRequest('/questions/' + id)
+  return apiRequest('/questions/' + encodeURIComponent(id))
     .query(getQuestionsParams(options))
+    .then(res => res.body)
+}
+
+export function fetchTags () {
+  return apiRequest('/tags')
+    .query({ pagesize: 99 })
+    .then(res => res.body)
+}
+
+export function fetchTagWiki (id) {
+  return apiRequest('/tags/' + encodeURIComponent(id) + '/wiki')
     .then(res => res.body)
 }

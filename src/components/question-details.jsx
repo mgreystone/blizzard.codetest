@@ -37,7 +37,7 @@ const QuestionDetails = React.createClass({
 
     return (
       <div className='question-details'>
-        <h1>{title}</h1>
+        <h1 className='page-title'>{title}</h1>
 
         <div className='question'>
           <div className='controls'>

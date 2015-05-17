@@ -30,12 +30,6 @@
 }
 
 .question-details {
-  h1 {
-    margin: {
-      top: 0;
-    }
-  }
-
   .question {
     @extend %question-or-answer;
   }

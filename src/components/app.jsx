@@ -18,9 +18,9 @@ const App = React.createClass({
         <AppHeader />
         <Banner />
         <div className='main-outer'>
-          <div className='main'>
+          <main className='main'>
             <RouteHandler />
-          </div>
+          </main>
         </div>
       </div>
     )

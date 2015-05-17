@@ -15,6 +15,9 @@ const PrimaryNav = React.createClass({
           <li>
             <Link to='questions'>Questions</Link>
           </li>
+          <li>
+            <Link to='tags'>Tags</Link>
+          </li>
         </ul>
       </nav>
     )

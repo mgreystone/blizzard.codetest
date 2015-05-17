@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import QuestionsList from '../components/questions-list'
+import QuestionsListHome from '../components/questions-list-home'
 
 const QuestionsRoute = React.createClass({
   displayName: 'QuestionsRoute',
@@ -15,7 +15,7 @@ const QuestionsRoute = React.createClass({
     let sort = this.context.router.getCurrentQuery().s
 
     return (
-      <QuestionsList sort={sort} />
+      <QuestionsListHome sort={sort} />
     )
   }
 })
