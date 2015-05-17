@@ -19,14 +19,7 @@ const QuestionsTab = React.createClass({
 
   propTypes: {
     label: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
-    onSelect: React.PropTypes.func
-  },
-
-  getDefaultProps () {
-    return {
-      onSelect () {}
-    }
+    value: React.PropTypes.string.isRequired
   },
 
   render () {
