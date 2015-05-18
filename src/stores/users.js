@@ -18,18 +18,18 @@ const store = Reflux.createStore({
     this.users = null
   },
 
-  fetch () {
+  onFetch () {
     this.isLoading = true
     this.refreshState()
   },
 
-  fetchCompleted (data) {
+  onFetchCompleted (data) {
     this.isLoading = false
     this.users = Immutable.fromJS(data)
     this.refreshState()
   },
 
-  fetchFailed () {
+  onFetchFailed () {
     // TODO
     this.isLoading = false
   },

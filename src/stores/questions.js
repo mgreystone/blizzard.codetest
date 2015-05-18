@@ -21,7 +21,7 @@ const store = Reflux.createStore({
     this.isLoading = false
   },
 
-  fetch (params) {
+  onFetch (params) {
     let options = Object.assign({}, params)
     this.isLoading = true
     this.query = null
@@ -29,19 +29,19 @@ const store = Reflux.createStore({
     this.refreshState()
   },
 
-  fetchCompleted (data) {
+  onFetchCompleted (data) {
     this.isLoading = false
     this.questions = Immutable.fromJS(data)
     this.refreshState()
   },
 
-  fetchFailed () {
+  onFetchFailed () {
     // TODO
     this.isLoading = false
     this.refreshState()
   },
 
-  search (params) {
+  onSearch (params) {
     let options = Object.assign({}, params)
     this.isLoading = true
     this.query = options.query
@@ -49,63 +49,63 @@ const store = Reflux.createStore({
     this.refreshState()
   },
 
-  searchCompleted (data) {
-    this.fetchCompleted(data)
+  onSearchCompleted (data) {
+    this.onFetchCompleted(data)
   },
 
-  searchFailed () {
-    this.fetchFailed()
+  onSearchFailed () {
+    this.onFetchFailed()
   },
 
-  fetchById (options) {
+  onFetchById (options) {
     this.isLoading = true
     this.query = null
     this.sort = null
     this.refreshState()
   },
 
-  fetchByIdCompleted (data) {
+  onFetchByIdCompleted (data) {
     this.isLoading = false
     this.questions = Immutable.fromJS(data)
     this.refreshState()
   },
 
-  fetchByIdFailed () {
-    this.fetchFailed()
+  onFetchByIdFailed () {
+    this.onFetchFailed()
   },
 
-  fetchByUserId () {
+  onFetchByUserId () {
     this.isLoading = true
     this.query = null
     this.sort = null
     this.refreshState()
   },
 
-  fetchByUserIdCompleted (data) {
+  onFetchByUserIdCompleted (data) {
     this.isLoading = false
     this.questions = Immutable.fromJS(data)
     this.refreshState()
   },
 
-  fetchByUserIdFailed () {
-    this.fetchFailed()
+  onFetchByUserIdFailed () {
+    this.onFetchFailed()
   },
 
-  fetchFavorites () {
+  onFetchFavorites () {
     this.isLoading = true
     this.query = null
     this.sort = null
     this.refreshState()
   },
 
-  fetchFavoritesCompleted (data) {
+  onFetchFavoritesCompleted (data) {
     this.isLoading = false
     this.questions = Immutable.fromJS(data)
     this.refreshState()
   },
 
-  fetchFavoritesFailed () {
-    this.fetchFailed()
+  onFetchFavoritesFailed () {
+    this.onFetchFailed()
   },
 
   getState () {
