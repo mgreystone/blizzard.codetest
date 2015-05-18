@@ -40,9 +40,7 @@ const UserProfile = React.createClass({
       <div className='user-profile'>
         <h1 className='page-title'>{displayName}</h1>
 
-        <div className='about-me'>
-          {aboutMe}
-        </div>
+        <div className='about-me' dangerouslySetInnerHTML={{ __html: aboutMe }}></div>
 
         <ul className='tabs'>
           <li>
