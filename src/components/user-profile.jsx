@@ -9,14 +9,11 @@ import { RouteHandler, Link } from 'react-router'
 import usersActions from '../actions/users'
 import usersStore from '../stores/users'
 
-import authenticationStore from '../stores/authentication'
-
 const UserProfile = React.createClass({
   displayName: 'UserProfile',
 
   mixins: [
-    Reflux.connect(usersStore, 'users'),
-    Reflux.connect(authenticationStore, 'authentication')
+    Reflux.connect(usersStore, 'users')
   ],
 
   propTypes: {
@@ -30,9 +27,7 @@ const UserProfile = React.createClass({
   },
 
   componentWillMount () {
-    usersActions.fetch(this.props.userId, {
-      accessToken: this.state.authentication.get('accessToken')
-    })
+    usersActions.fetch(this.props.userId)
   },
 
   render () {

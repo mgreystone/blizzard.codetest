@@ -4,11 +4,8 @@ import Reflux from 'reflux'
 import { Map } from 'immutable'
 
 import base from './base'
-
 import actions from '../actions/authentication'
-
-const LS_KEY_ACCESS_TOKEN = 'authentication.accessToken'
-const LS_KEY_ACCOUNT_ID = 'authentication.accountId'
+import { isAuthenticated } from '../services/stack-exchange'
 
 const store = Reflux.createStore({
   listenables: actions,
@@ -17,9 +14,12 @@ const store = Reflux.createStore({
     base
   ],
 
+  init () {
+    this.isAuthenticated = isAuthenticated()
+  },
+
   onAuthenticateCompleted (data) {
-    localStorage.setItem(LS_KEY_ACCESS_TOKEN, data.accessToken)
-    localStorage.setItem(LS_KEY_ACCOUNT_ID, data.networkUsers[0].account_id)
+    this.isAuthenticated = true
     this.refreshState()
   },
 
@@ -28,19 +28,13 @@ const store = Reflux.createStore({
   },
 
   onRevoke () {
-    localStorage.removeItem(LS_KEY_ACCESS_TOKEN)
-    localStorage.removeItem(LS_KEY_ACCOUNT_ID)
+    this.isAuthenticated = false
     this.refreshState()
   },
 
   getState () {
-    let accessToken = localStorage.getItem(LS_KEY_ACCESS_TOKEN)
-    let accountId = localStorage.getItem(LS_KEY_ACCOUNT_ID)
-
     return new Map({
-      isAuthenticated: !!accessToken,
-      accessToken,
-      accountId
+      isAuthenticated: this.isAuthenticated
     })
   }
 })

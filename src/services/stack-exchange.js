@@ -17,6 +17,8 @@ import {
 }
 from '../config'
 
+const LS_KEY_ACCESS_TOKEN = 'stackExchange.accessToken'
+
 const prefix = prefixify(SE_API_PREFIX)
 
 const init = new Promise(resolve => {
@@ -34,20 +36,32 @@ function apiRequest (resource) {
     .set('Accept', 'application/json')
     .query({
       key: SE_KEY,
-      site: SE_SITE
+      site: SE_SITE,
+      access_token: localStorage.getItem(LS_KEY_ACCESS_TOKEN)
     })
+}
+
+export function isAuthenticated () {
+  return !!localStorage.getItem(LS_KEY_ACCESS_TOKEN)
 }
 
 export function authenticate () {
   return init.then(() => {
     return new Promise((resolve, reject) => {
       SE.authenticate({
-        networkUsers: true,
-        success: resolve,
-        error: reject
+        error: reject,
+
+        success (data) {
+          resolve()
+          localStorage.setItem(LS_KEY_ACCESS_TOKEN, data.accessToken)
+        }
       })
     })
   })
+}
+
+export function revoke () {
+  localStorage.removeItem(LS_KEY_ACCESS_TOKEN)
 }
 
 function getQuestionsParams (options) {
@@ -91,10 +105,7 @@ export function fetchUser (id, options) {
   let resource = id ? '/users/' + encodeURIComponent(id) : '/me'
 
   return apiRequest(resource)
-    .query({
-      filter: SE_FILTER_USER_PROFILE,
-      access_token: options.accessToken
-    })
+    .query({ filter: SE_FILTER_USER_PROFILE })
     .then(res => res.body)
 }
 
@@ -102,9 +113,6 @@ export function fetchUserQuestions (id, options) {
   let resource = id ? '/users/' + encodeURIComponent(id) + '/questions' : '/me/questions'
 
   return apiRequest(resource)
-    .query({
-      filter: SE_FILTER_QUESTIONS,
-      access_token: options.accessToken
-    })
+    .query({ filter: SE_FILTER_QUESTIONS })
     .then(res => res.body)
 }

@@ -6,16 +6,13 @@ import Reflux from 'reflux'
 import questionsStore from '../stores/questions'
 import questionsActions from '../actions/questions'
 
-import authenticationStore from '../stores/authentication'
-
 import QuestionsList from './questions-list'
 
 const UserQuestions = React.createClass({
   displayName: 'UserQuestions',
 
   mixins: [
-    Reflux.connect(questionsStore, 'questions'),
-    Reflux.connect(authenticationStore, 'authentication')
+    Reflux.connect(questionsStore, 'questions')
   ],
 
   propTypes: {
@@ -29,9 +26,7 @@ const UserQuestions = React.createClass({
   },
 
   componentWillMount () {
-    questionsActions.fetchByUserId(this.props.userId, {
-      accessToken: this.state.authentication.get('accessToken')
-    })
+    questionsActions.fetchByUserId(this.props.userId)
   },
 
   render () {
