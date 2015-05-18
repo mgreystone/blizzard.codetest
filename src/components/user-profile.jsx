@@ -48,6 +48,9 @@ const UserProfile = React.createClass({
           <li>
             <Link to='my-questions'>Questions</Link>
           </li>
+          <li>
+            <Link to='my-answers'>Answers</Link>
+          </li>
         </ul>
 
         <RouteHandler />

@@ -13,7 +13,8 @@ import {
   SE_SITE,
   SE_FILTER_QUESTIONS,
   SE_FILTER_QUESTION_DETAILS,
-  SE_FILTER_USER_PROFILE
+  SE_FILTER_USER_PROFILE,
+  SE_FILTER_ANSWERS_LIST
 }
 from '../config'
 
@@ -101,7 +102,7 @@ export function fetchTagWiki (id) {
     .then(res => res.body)
 }
 
-export function fetchUser (id, options) {
+export function fetchUser (id) {
   let resource = id ? '/users/' + encodeURIComponent(id) : '/me'
 
   return apiRequest(resource)
@@ -109,10 +110,18 @@ export function fetchUser (id, options) {
     .then(res => res.body)
 }
 
-export function fetchUserQuestions (id, options) {
+export function fetchUserQuestions (id) {
   let resource = id ? '/users/' + encodeURIComponent(id) + '/questions' : '/me/questions'
 
   return apiRequest(resource)
     .query({ filter: SE_FILTER_QUESTIONS })
+    .then(res => res.body)
+}
+
+export function fetchUserAnswers (id) {
+  let resource = id ? '/users/' + encodeURIComponent(id) + '/answers' : '/me/answers'
+
+  return apiRequest(resource)
+    .query({ filter: SE_FILTER_ANSWERS_LIST })
     .then(res => res.body)
 }

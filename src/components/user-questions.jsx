@@ -1,19 +1,13 @@
 'use strict'
 
 import React from 'react'
-import Reflux from 'reflux'
 
-import questionsStore from '../stores/questions'
 import questionsActions from '../actions/questions'
 
 import QuestionsList from './questions-list'
 
 const UserQuestions = React.createClass({
   displayName: 'UserQuestions',
-
-  mixins: [
-    Reflux.connect(questionsStore, 'questions')
-  ],
 
   propTypes: {
     userId: React.PropTypes.number

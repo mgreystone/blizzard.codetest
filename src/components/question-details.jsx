@@ -20,11 +20,33 @@ const QuestionDetails = React.createClass({
   ],
 
   propTypes: {
-    questionId: React.PropTypes.number.isRequired
+    questionId: React.PropTypes.number.isRequired,
+    answerId: React.PropTypes.number
+  },
+
+  getDefaultProps () {
+    return {
+      answerId: null
+    }
   },
 
   componentWillMount () {
+    this.shouldScroll = !!this.props.answerId
     questionsActions.fetchById(this.props.questionId, { withDetails: true })
+  },
+
+  componentWillReceiveProps (nextProps) {
+    this.shouldScroll = !!nextProps.answerId && nextProps.answerId !== this.props.answerId
+  },
+
+  componentDidUpdate () {
+    if (this.shouldScroll) {
+      let ref = this.refs[`answer_${this.props.answerId}`]
+      if (ref) {
+        React.findDOMNode(ref).scrollIntoView()
+        this.shouldScroll = false
+      }
+    }
   },
 
   render () {
@@ -58,7 +80,7 @@ const QuestionDetails = React.createClass({
           let isAccepted = item.get('is_accepted')
 
           return (
-            <div key={id} className='answer'>
+            <div key={id} ref={`answer_${id}`} className='answer'>
               <div className='controls'>
                 <div className='score'>{score}</div>
                 {isAccepted ? <div className='check'><Icon glyph='check' /></div> : null}

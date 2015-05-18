@@ -12,10 +12,11 @@ const QuestionDetailsRoute = React.createClass({
   },
 
   render () {
-    let questionId = this.context.router.getCurrentParams().questionId
+    let params = this.context.router.getCurrentParams()
+    let { questionId, answerId } = params
 
     return (
-      <QuestionDetails questionId={questionId} />
+      <QuestionDetails questionId={questionId} answerId={answerId} />
     )
   }
 })

@@ -1,14 +1,23 @@
 @import 'bourbon';
 
-.questions-list-item {
+.answers-list-item {
   @include display(flex);
   @include align-items(stretch);
   @include flex-direction(row);
   @include justify-content(flex-start);
 
-  margin: 1em 0;
+  margin: 1ex 0;
 
-  .title-and-tags {
+  .title {
     @include flex(1);
+  }
+
+  .score {
+    width: 50px;
+    padding: 0 0.5ex;
+
+    text: {
+      align: center;
+    }
   }
 }
