@@ -99,7 +99,7 @@ export function fetchTags () {
 }
 
 export function fetchTagWiki (id) {
-  return apiRequest('/tags/' + encodeURIComponent(id) + '/wiki')
+  return apiRequest(`/tags/${encodeURIComponent(id)}/wiki`)
     .then(res => res.body)
 }
 
@@ -132,5 +132,13 @@ export function fetchUserBadges (id) {
 
   return apiRequest(resource)
     .query({ filter: SE_FILTER_BADGES })
+    .then(res => res.body)
+}
+
+export function fetchUserFavoriteQuestions (id) {
+  let resource = id ? `/users/${encodeURIComponent(id)}/favorites` : '/me/favorites'
+
+  return apiRequest(resource)
+    .query({ filter: SE_FILTER_QUESTIONS })
     .then(res => res.body)
 }

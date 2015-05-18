@@ -52,6 +52,9 @@ const UserProfile = React.createClass({
           <li>
             <Link to='my-badges'>Badges</Link>
           </li>
+          <li>
+            <Link to='my-favorites'>Favorites</Link>
+          </li>
         </ul>
 
         <RouteHandler />

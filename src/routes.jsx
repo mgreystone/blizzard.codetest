@@ -14,6 +14,7 @@ import MeRoute from './routes/me'
 import MyQuestionsRoute from './routes/my-questions'
 import MyAnswersRoute from './routes/my-answers'
 import MyBadgesRoute from './routes/my-badges'
+import MyFavoritesRoute from './routes/my-favorites'
 
 const routes = (
   <Route handler={App}>
@@ -32,6 +33,7 @@ const routes = (
       <DefaultRoute name='my-questions' handler={MyQuestionsRoute} />
       <Route name='my-answers' path='answers' handler={MyAnswersRoute} />
       <Route name='my-badges' path='badges' handler={MyBadgesRoute} />
+      <Route name='my-favorites' path='favorites' handler={MyFavoritesRoute} />
     </Route>
   </Route>
 )

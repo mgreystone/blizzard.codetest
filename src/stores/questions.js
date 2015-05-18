@@ -91,6 +91,23 @@ const store = Reflux.createStore({
     this.fetchFailed()
   },
 
+  fetchFavorites () {
+    this.isLoading = true
+    this.query = null
+    this.sort = null
+    this.refreshState()
+  },
+
+  fetchFavoritesCompleted (data) {
+    this.isLoading = false
+    this.questions = Immutable.fromJS(data)
+    this.refreshState()
+  },
+
+  fetchFavoritesFailed () {
+    this.fetchFailed()
+  },
+
   getState () {
     return new Map({
       data: this.questions,
