@@ -13,6 +13,7 @@ import TaggedQuestionsRoute from './routes/tagged-questions'
 import MeRoute from './routes/me'
 import MyQuestionsRoute from './routes/my-questions'
 import MyAnswersRoute from './routes/my-answers'
+import MyBadgesRoute from './routes/my-badges'
 
 const routes = (
   <Route handler={App}>
@@ -30,6 +31,7 @@ const routes = (
     <Route name='me' path='me' handler={MeRoute}>
       <DefaultRoute name='my-questions' handler={MyQuestionsRoute} />
       <Route name='my-answers' path='answers' handler={MyAnswersRoute} />
+      <Route name='my-badges' path='badges' handler={MyBadgesRoute} />
     </Route>
   </Route>
 )

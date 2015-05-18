@@ -51,6 +51,9 @@ const UserProfile = React.createClass({
           <li>
             <Link to='my-answers'>Answers</Link>
           </li>
+          <li>
+            <Link to='my-badges'>Badges</Link>
+          </li>
         </ul>
 
         <RouteHandler />

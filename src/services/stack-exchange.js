@@ -14,7 +14,8 @@ import {
   SE_FILTER_QUESTIONS,
   SE_FILTER_QUESTION_DETAILS,
   SE_FILTER_USER_PROFILE,
-  SE_FILTER_ANSWERS_LIST
+  SE_FILTER_ANSWERS_LIST,
+  SE_FILTER_BADGES
 }
 from '../config'
 
@@ -103,7 +104,7 @@ export function fetchTagWiki (id) {
 }
 
 export function fetchUser (id) {
-  let resource = id ? '/users/' + encodeURIComponent(id) : '/me'
+  let resource = id ? `/users/${encodeURIComponent(id)}` : '/me'
 
   return apiRequest(resource)
     .query({ filter: SE_FILTER_USER_PROFILE })
@@ -111,7 +112,7 @@ export function fetchUser (id) {
 }
 
 export function fetchUserQuestions (id) {
-  let resource = id ? '/users/' + encodeURIComponent(id) + '/questions' : '/me/questions'
+  let resource = id ? `/users/${encodeURIComponent(id)}/questions` : '/me/questions'
 
   return apiRequest(resource)
     .query({ filter: SE_FILTER_QUESTIONS })
@@ -119,9 +120,17 @@ export function fetchUserQuestions (id) {
 }
 
 export function fetchUserAnswers (id) {
-  let resource = id ? '/users/' + encodeURIComponent(id) + '/answers' : '/me/answers'
+  let resource = id ? `/users/${encodeURIComponent(id)}/answers` : '/me/answers'
 
   return apiRequest(resource)
     .query({ filter: SE_FILTER_ANSWERS_LIST })
+    .then(res => res.body)
+}
+
+export function fetchUserBadges (id) {
+  let resource = id ? `/users/${encodeURIComponent(id)}/badges` : '/me/badges'
+
+  return apiRequest(resource)
+    .query({ filter: SE_FILTER_BADGES })
     .then(res => res.body)
 }

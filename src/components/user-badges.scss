@@ -1,0 +1,29 @@
+@import 'bourbon';
+@import '../styles/variables';
+
+.user-badges {
+  @include display(flex);
+  @include align-items(stretch);
+  @include flex-direction(row);
+  @include justify-content(flex-start);
+  @include flex-wrap(wrap);
+
+  margin: 0;
+  padding: 10px;
+  list-style: none none;
+  background: $color-panel;
+
+  li {
+    @include flex(1);
+
+    margin: 1ex 0;
+    padding: 0;
+    min-width: 200px;
+  }
+
+  .award-count {
+    font: {
+      size: 0.75em;
+    }
+  }
+}
