@@ -10,6 +10,8 @@ import SearchRoute from './routes/search'
 import QuestionDetailsRoute from './routes/question-details'
 import TagsRoute from './routes/tags'
 import TaggedQuestionsRoute from './routes/tagged-questions'
+import MeRoute from './routes/me'
+import MyQuestionsRoute from './routes/my-questions'
 
 const routes = (
   <Route handler={App}>
@@ -19,6 +21,9 @@ const routes = (
     <Route path='tags'>
       <DefaultRoute name='tags' handler={TagsRoute} />
       <Route name='tagged-questions' path=':tag' handler={TaggedQuestionsRoute} />
+    </Route>
+    <Route name='me' path='me' handler={MeRoute}>
+      <DefaultRoute name='my-questions' handler={MyQuestionsRoute} />
     </Route>
   </Route>
 )

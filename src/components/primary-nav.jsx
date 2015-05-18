@@ -36,6 +36,11 @@ const PrimaryNav = React.createClass({
           <li>
             <Link to='tags'>Tags</Link>
           </li>
+          {!isAuthenticated ? null :
+            <li>
+              <Link to='me'>Profile</Link>
+            </li>
+          }
           <li>
             {!isAuthenticated ?
               <span className='link' onClick={this.onClickLogin}>Login</span> :

@@ -12,24 +12,19 @@ import {
   SE_API_PREFIX,
   SE_SITE,
   SE_FILTER_QUESTIONS,
-  SE_FILTER_QUESTION_DETAILS
+  SE_FILTER_QUESTION_DETAILS,
+  SE_FILTER_USER_PROFILE
 }
 from '../config'
 
 const prefix = prefixify(SE_API_PREFIX)
-
-let accessToken = null
-let expirationDate = null
 
 const init = new Promise(resolve => {
   SE.init({
     clientId: SE_CLIENT_ID,
     key: SE_KEY,
     channelUrl: SE_CHANNEL_URL,
-
-    complete (data) {
-      resolve(data)
-    }
+    complete: resolve
   })
 })
 
@@ -37,7 +32,10 @@ function apiRequest (resource) {
   return request(resource)
     .use(prefix)
     .set('Accept', 'application/json')
-    .query({ site: SE_SITE })
+    .query({
+      key: SE_KEY,
+      site: SE_SITE
+    })
 }
 
 export function authenticate () {
@@ -45,26 +43,11 @@ export function authenticate () {
     return new Promise((resolve, reject) => {
       SE.authenticate({
         networkUsers: true,
-
-        success (data) {
-          accessToken = data.accessToken
-          expirationDate = data.expirationDate
-          resolve(data)
-        },
-
-        error (data) {
-          reject(data)
-        }
+        success: resolve,
+        error: reject
       })
     })
   })
-}
-
-export function revoke () {
-  // TODO This is crap... This token needs to be actually revoked, not merely forgotten
-  accessToken = null
-  expirationDate = null
-  return Promise.resolve()
 }
 
 function getQuestionsParams (options) {
@@ -101,5 +84,27 @@ export function fetchTags () {
 
 export function fetchTagWiki (id) {
   return apiRequest('/tags/' + encodeURIComponent(id) + '/wiki')
+    .then(res => res.body)
+}
+
+export function fetchUser (id, options) {
+  let resource = id ? '/users/' + encodeURIComponent(id) : '/me'
+
+  return apiRequest(resource)
+    .query({
+      filter: SE_FILTER_USER_PROFILE,
+      access_token: options.accessToken
+    })
+    .then(res => res.body)
+}
+
+export function fetchUserQuestions (id, options) {
+  let resource = id ? '/users/' + encodeURIComponent(id) + '/questions' : '/me/questions'
+
+  return apiRequest(resource)
+    .query({
+      filter: SE_FILTER_QUESTIONS,
+      access_token: options.accessToken
+    })
     .then(res => res.body)
 }

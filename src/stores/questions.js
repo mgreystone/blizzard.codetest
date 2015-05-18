@@ -74,6 +74,23 @@ const store = Reflux.createStore({
     this.fetchFailed()
   },
 
+  fetchByUserId () {
+    this.isLoading = true
+    this.query = null
+    this.sort = null
+    this.refreshState()
+  },
+
+  fetchByUserIdCompleted (data) {
+    this.isLoading = false
+    this.questions = Immutable.fromJS(data)
+    this.refreshState()
+  },
+
+  fetchByUserIdFailed () {
+    this.fetchFailed()
+  },
+
   getState () {
     return new Map({
       data: this.questions,

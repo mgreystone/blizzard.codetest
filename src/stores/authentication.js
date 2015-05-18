@@ -7,6 +7,9 @@ import base from './base'
 
 import actions from '../actions/authentication'
 
+const LS_KEY_ACCESS_TOKEN = 'authentication.accessToken'
+const LS_KEY_ACCOUNT_ID = 'authentication.accountId'
+
 const store = Reflux.createStore({
   listenables: actions,
 
@@ -14,14 +17,9 @@ const store = Reflux.createStore({
     base
   ],
 
-  init () {
-    this.accessToken = null
-    this.accountId = null
-  },
-
   onAuthenticateCompleted (data) {
-    this.accessToken = data.accessToken
-    this.accountId = data.networkUsers[0].account_id
+    localStorage.setItem(LS_KEY_ACCESS_TOKEN, data.accessToken)
+    localStorage.setItem(LS_KEY_ACCOUNT_ID, data.networkUsers[0].account_id)
     this.refreshState()
   },
 
@@ -30,16 +28,19 @@ const store = Reflux.createStore({
   },
 
   onRevoke () {
-    this.accessToken = null
-    this.accountId = null
+    localStorage.removeItem(LS_KEY_ACCESS_TOKEN)
+    localStorage.removeItem(LS_KEY_ACCOUNT_ID)
     this.refreshState()
   },
 
   getState () {
+    let accessToken = localStorage.getItem(LS_KEY_ACCESS_TOKEN)
+    let accountId = localStorage.getItem(LS_KEY_ACCOUNT_ID)
+
     return new Map({
-      isAuthenticated: this.accessToken !== null,
-      accessToken: this.accessToken,
-      accoundId: this.accountId
+      isAuthenticated: !!accessToken,
+      accessToken,
+      accountId
     })
   }
 })
