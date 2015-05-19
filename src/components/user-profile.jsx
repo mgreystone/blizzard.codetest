@@ -10,6 +10,7 @@ import usersActions from '../actions/users'
 import usersStore from '../stores/users'
 
 import Loader from './loader'
+import DocumentTitle from './document-title'
 
 const UserProfile = React.createClass({
   displayName: 'UserProfile',
@@ -41,26 +42,30 @@ const UserProfile = React.createClass({
     return (
       <div className='user-profile'>
         <Loader loaded={!this.state.users.get('isLoading')}>
-          <h1 className='page-title'>{displayName}</h1>
+          <DocumentTitle title={displayName}>
+            <div>
+              <h1 className='page-title'>{displayName}</h1>
 
-          <div className='about-me' dangerouslySetInnerHTML={{ __html: aboutMe }}></div>
+              <div className='about-me' dangerouslySetInnerHTML={{ __html: aboutMe }}></div>
 
-          <ul className='tabs'>
-            <li>
-              <Link to='my-questions'>Questions</Link>
-            </li>
-            <li>
-              <Link to='my-answers'>Answers</Link>
-            </li>
-            <li>
-              <Link to='my-badges'>Badges</Link>
-            </li>
-            <li>
-              <Link to='my-favorites'>Favorites</Link>
-            </li>
-          </ul>
+              <ul className='tabs'>
+                <li>
+                  <Link to='my-questions'>Questions</Link>
+                </li>
+                <li>
+                  <Link to='my-answers'>Answers</Link>
+                </li>
+                <li>
+                  <Link to='my-badges'>Badges</Link>
+                </li>
+                <li>
+                  <Link to='my-favorites'>Favorites</Link>
+                </li>
+              </ul>
 
-          <RouteHandler />
+              <RouteHandler />
+            </div>
+          </DocumentTitle>
         </Loader>
       </div>
     )

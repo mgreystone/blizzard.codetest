@@ -7,6 +7,7 @@ import questionsActions from '../actions/questions'
 import QuestionsTabPanel from './questions-tab-panel'
 import QuestionsTab from './questions-tab'
 import QuestionsList from './questions-list'
+import DocumentTitle from './document-title'
 
 const QuestionsListHome = React.createClass({
   displayName: 'QuestionsListHome',
@@ -35,20 +36,22 @@ const QuestionsListHome = React.createClass({
 
   render () {
     return (
-      <div className='questions-list-home'>
-        <h1 className='page-title'>All Questions</h1>
+      <DocumentTitle title='Questions'>
+        <div className='questions-list-home'>
+          <h1 className='page-title'>All Questions</h1>
 
-        <QuestionsTabPanel>
-          <QuestionsTab value='activity' label='Active' />
-          <QuestionsTab value='creation' label='Newest' />
-          <QuestionsTab value='votes' label='Most Votes' />
-          <QuestionsTab value='hot' label='Hot' />
-          <QuestionsTab value='week' label='Week' />
-          <QuestionsTab value='month' label='Month' />
-        </QuestionsTabPanel>
+          <QuestionsTabPanel>
+            <QuestionsTab value='activity' label='Active' />
+            <QuestionsTab value='creation' label='Newest' />
+            <QuestionsTab value='votes' label='Most Votes' />
+            <QuestionsTab value='hot' label='Hot' />
+            <QuestionsTab value='week' label='Week' />
+            <QuestionsTab value='month' label='Month' />
+          </QuestionsTabPanel>
 
-        <QuestionsList />
-      </div>
+          <QuestionsList />
+        </div>
+      </DocumentTitle>
     )
   }
 })

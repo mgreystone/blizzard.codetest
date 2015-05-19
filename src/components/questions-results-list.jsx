@@ -8,6 +8,7 @@ import QuestionsSearchForm from './questions-search-form'
 import QuestionsTabPanel from './questions-tab-panel'
 import QuestionsTab from './questions-tab'
 import QuestionsList from './questions-list'
+import DocumentTitle from './document-title'
 
 const QuestionsResultsList = React.createClass({
   displayName: 'QuestionsResultsList',
@@ -39,20 +40,22 @@ const QuestionsResultsList = React.createClass({
 
   render () {
     return (
-      <div className='questions-results-list'>
-        <h1 className='page-title'>Search</h1>
+      <DocumentTitle title='Search'>
+        <div className='questions-results-list'>
+          <h1 className='page-title'>Search</h1>
 
-        <QuestionsSearchForm />
+          <QuestionsSearchForm />
 
-        <QuestionsTabPanel>
-          <QuestionsTab value='relevance' label='Relevance' />
-          <QuestionsTab value='activity' label='Active' />
-          <QuestionsTab value='creation' label='Newest' />
-          <QuestionsTab value='votes' label='Votes' />
-        </QuestionsTabPanel>
+          <QuestionsTabPanel>
+            <QuestionsTab value='relevance' label='Relevance' />
+            <QuestionsTab value='activity' label='Active' />
+            <QuestionsTab value='creation' label='Newest' />
+            <QuestionsTab value='votes' label='Votes' />
+          </QuestionsTabPanel>
 
-        <QuestionsList />
-      </div>
+          <QuestionsList />
+        </div>
+      </DocumentTitle>
     )
   }
 })

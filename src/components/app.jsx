@@ -8,21 +8,24 @@ import { RouteHandler } from 'react-router'
 
 import AppHeader from './app-header'
 import Banner from './banner'
+import DocumentTitle from './document-title'
 
 const App = React.createClass({
   displayName: 'App',
 
   render () {
     return (
-      <div className='app'>
-        <AppHeader />
-        <Banner />
-        <div className='main-outer'>
-          <main className='main'>
-            <RouteHandler />
-          </main>
+      <DocumentTitle>
+        <div className='app'>
+          <AppHeader />
+          <Banner />
+          <div className='main-outer'>
+            <main className='main'>
+              <RouteHandler />
+            </main>
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     )
   }
 })

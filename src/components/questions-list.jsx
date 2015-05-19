@@ -24,11 +24,11 @@ const QuestionsList = React.createClass({
     return (
       <div className='questions-list'>
         <Loader loaded={!this.state.questions.get('isLoading')}>
-          {!items ? null : items.map(item => {
-            return (
-              <QuestionsListItem key={item.get('question_id')} question={item} />
-            )
-          })}
+            {!items ? null : items.map(item => {
+              return (
+                <QuestionsListItem key={item.get('question_id')} question={item} />
+              )
+            })}
         </Loader>
       </div>
     )

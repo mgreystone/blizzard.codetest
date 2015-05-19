@@ -5,6 +5,7 @@ import React from 'react'
 import questionsActions from '../actions/questions'
 
 import QuestionsList from './questions-list'
+import DocumentTitle from './document-title'
 
 const TaggedQuestionsList = React.createClass({
   displayName: 'TaggedQuestionsList',
@@ -19,10 +20,12 @@ const TaggedQuestionsList = React.createClass({
 
   render () {
     return (
-      <div className='tagged-questions-list'>
-        <h1 className='page-title'>Tagged Questions</h1>
-        <QuestionsList />
-      </div>
+      <DocumentTitle title={this.props.tag}>
+        <div className='tagged-questions-list'>
+          <h1 className='page-title'>Tagged Questions</h1>
+          <QuestionsList />
+        </div>
+      </DocumentTitle>
     )
   }
 })
