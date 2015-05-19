@@ -13,24 +13,28 @@ const QuestionsListHome = React.createClass({
   displayName: 'QuestionsListHome',
 
   propTypes: {
-    sort: React.PropTypes.string
+    sort: React.PropTypes.string,
+    page: React.PropTypes.number
   },
 
   getDefaultProps () {
     return {
-      sort: 'activity'
+      sort: 'activity',
+      page: 1
     }
   },
 
   componentWillMount () {
     questionsActions.fetch({
-      sort: this.props.sort
+      sort: this.props.sort,
+      page: this.props.page || null
     })
   },
 
   componentWillReceiveProps (props) {
     questionsActions.fetch({
-      sort: props.sort
+      sort: props.sort,
+      page: props.page || null
     })
   },
 

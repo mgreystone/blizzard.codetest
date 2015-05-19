@@ -1,6 +1,17 @@
+@import 'bourbon';
 @import '../styles/variables';
 
 .questions-list {
+  @include clearfix;
+
   background: $color-panel;
   padding: 10px;
+
+  .prev {
+    float: left;
+  }
+
+  .next {
+    float: right;
+  }
 }

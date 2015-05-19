@@ -12,10 +12,12 @@ const QuestionsRoute = React.createClass({
   },
 
   render () {
-    let sort = this.context.router.getCurrentQuery().s
+    let currentQuery = this.context.router.getCurrentQuery()
+    let sort = currentQuery.s
+    let page = parseInt(currentQuery.p, 10)
 
     return (
-      <QuestionsListHome sort={sort} />
+      <QuestionsListHome sort={sort} page={page} />
     )
   }
 })

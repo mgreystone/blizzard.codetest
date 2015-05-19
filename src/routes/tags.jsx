@@ -12,8 +12,10 @@ const TagsRoute = React.createClass({
   },
 
   render () {
+    let page = parseInt(this.context.router.getCurrentQuery().p, 10)
+
     return (
-      <TagCloud />
+      <TagCloud page={page} />
     )
   }
 })

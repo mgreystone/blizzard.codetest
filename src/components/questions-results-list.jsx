@@ -17,26 +17,30 @@ const QuestionsResultsList = React.createClass({
 
   propTypes: {
     query: React.PropTypes.string.isRequired,
-    sort: React.PropTypes.string
+    sort: React.PropTypes.string,
+    page: React.PropTypes.number
   },
 
   getDefaultProps () {
     return {
-      sort: 'relevance'
+      sort: 'relevance',
+      page: 1
     }
   },
 
   componentWillMount () {
     questionsActions.search({
       query: this.props.query,
-      sort: this.props.sort
+      sort: this.props.sort,
+      page: this.props.page || null
     })
   },
 
   componentWillReceiveProps (props) {
     questionsActions.search({
       query: props.query,
-      sort: props.sort
+      sort: props.sort,
+      page: props.page || null
     })
   },
 

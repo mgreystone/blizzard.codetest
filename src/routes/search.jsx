@@ -15,9 +15,10 @@ const SearchRoute = React.createClass({
     let routeQuery = this.context.router.getCurrentQuery()
     let query = routeQuery.q
     let sort = routeQuery.s
+    let page = parseInt(routeQuery.p, 10)
 
     return (
-      <QuestionsResultsList query={query} sort={sort} />
+      <QuestionsResultsList query={query} sort={sort} page={page} />
     )
   }
 })

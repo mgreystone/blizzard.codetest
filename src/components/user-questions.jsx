@@ -10,17 +10,27 @@ const UserQuestions = React.createClass({
   displayName: 'UserQuestions',
 
   propTypes: {
-    userId: React.PropTypes.number
+    userId: React.PropTypes.number,
+    page: React.PropTypes.number
   },
 
   getDefaultProps () {
     return {
-      userId: null
+      userId: null,
+      page: 1
     }
   },
 
   componentWillMount () {
-    questionsActions.fetchByUserId(this.props.userId)
+    questionsActions.fetchByUserId(this.props.userId, {
+      page: this.props.page || 1
+    })
+  },
+
+  componentWillReceiveProps (nextProps) {
+    questionsActions.fetchByUserId(nextProps.userId, {
+      page: nextProps.page || 1
+    })
   },
 
   render () {

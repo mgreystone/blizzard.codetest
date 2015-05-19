@@ -101,7 +101,8 @@ function getQuestionsParams (options) {
 
   return {
     sort: options.sort,
-    filter
+    filter,
+    page: options.page
   }
 }
 
@@ -127,9 +128,15 @@ export function fetchQuestionById (id, options) {
     .catch(returnErrBody)
 }
 
-export function fetchTags () {
+export function fetchTags (params) {
+  let options = Object.assign({}, params)
+
   return apiGet('/tags')
-    .query({ pagesize: 99 })
+    .query({
+      pagesize: 99,
+      page: options.page
+    })
+
     .then(returnBody)
     .catch(returnErrBody)
 }
@@ -149,20 +156,32 @@ export function fetchUser (id) {
     .catch(returnErrBody)
 }
 
-export function fetchUserQuestions (id) {
+export function fetchUserQuestions (id, params) {
+  let options = Object.assign({}, params)
   let resource = id ? `/users/${encodeURIComponent(id)}/questions` : '/me/questions'
 
   return apiGet(resource)
-    .query({ filter: SE_FILTER_QUESTIONS })
+
+    .query({
+      filter: SE_FILTER_QUESTIONS,
+      page: options.page
+    })
+
     .then(returnBody)
     .catch(returnErrBody)
 }
 
-export function fetchUserAnswers (id) {
+export function fetchUserAnswers (id, params) {
+  let options = Object.assign({}, params)
   let resource = id ? `/users/${encodeURIComponent(id)}/answers` : '/me/answers'
 
   return apiGet(resource)
-    .query({ filter: SE_FILTER_ANSWERS_LIST })
+
+    .query({
+      filter: SE_FILTER_ANSWERS_LIST,
+      page: options.page
+    })
+
     .then(returnBody)
     .catch(returnErrBody)
 }
@@ -176,11 +195,17 @@ export function fetchUserBadges (id) {
     .catch(returnErrBody)
 }
 
-export function fetchUserFavoriteQuestions (id) {
+export function fetchUserFavoriteQuestions (id, params) {
+  let options = Object.assign({}, params)
   let resource = id ? `/users/${encodeURIComponent(id)}/favorites` : '/me/favorites'
 
   return apiGet(resource)
-    .query({ filter: SE_FILTER_QUESTIONS })
+
+    .query({
+      filter: SE_FILTER_QUESTIONS,
+      page: options.page
+    })
+
     .then(returnBody)
     .catch(returnErrBody)
 }

@@ -13,11 +13,13 @@ const store = Reflux.createStore({
   init () {
     this.isLoading = false
     this.tags = null
-    this.wikis = null
+    this.page = 0
   },
 
-  onFetch () {
+  onFetch (params) {
+    let options = Object.assign({}, params)
     this.isLoading = true
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -51,7 +53,8 @@ const store = Reflux.createStore({
     return new Map({
       isLoading: this.isLoading,
       tags: this.tags,
-      wikis: this.wikis
+      wikis: this.wikis,
+      page: this.page
     })
   }
 })

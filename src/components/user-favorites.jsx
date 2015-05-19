@@ -10,17 +10,27 @@ const UserFavorites = React.createClass({
   displayName: 'UserFavorites',
 
   propTypes: {
-    userId: React.PropTypes.number
+    userId: React.PropTypes.number,
+    page: React.PropTypes.number
   },
 
   getDefaultProps () {
     return {
-      userId: null
+      userId: null,
+      page: null
     }
   },
 
   componentWillMount () {
-    questionsActions.fetchFavorites(this.props.userId)
+    questionsActions.fetchFavorites(this.props.userId, {
+      page: this.props.page || 1
+    })
+  },
+
+  componentWillReceiveProps (nextProps) {
+    questionsActions.fetchFavorites(nextProps.userId, {
+      page: nextProps.page || 1
+    })
   },
 
   render () {

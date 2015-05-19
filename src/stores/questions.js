@@ -22,6 +22,7 @@ const store = Reflux.createStore({
     this.questions = null
     this.query = null
     this.sort = null
+    this.page = 0
     this.isLoading = false
   },
 
@@ -30,6 +31,7 @@ const store = Reflux.createStore({
     this.isLoading = true
     this.query = null
     this.sort = options.sort
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -50,6 +52,7 @@ const store = Reflux.createStore({
     this.isLoading = true
     this.query = options.query
     this.sort = options.sort
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -61,10 +64,12 @@ const store = Reflux.createStore({
     this.onFetchFailed()
   },
 
-  onFetchById (options) {
+  onFetchById (params) {
+    let options = Object.assign({}, params)
     this.isLoading = true
     this.query = null
     this.sort = null
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -82,6 +87,7 @@ const store = Reflux.createStore({
     this.isLoading = true
     this.query = null
     this.sort = null
+    this.page = 1
     this.refreshState()
   },
 
@@ -95,10 +101,12 @@ const store = Reflux.createStore({
     this.onFetchFailed()
   },
 
-  onFetchFavorites () {
+  onFetchFavorites (params) {
+    let options = Object.assign({}, params)
     this.isLoading = true
     this.query = null
     this.sort = null
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -214,6 +222,7 @@ const store = Reflux.createStore({
       data: this.questions,
       query: this.query,
       sort: this.sort,
+      page: this.page,
       isLoading: this.isLoading
     })
   }

@@ -30,6 +30,8 @@ const QuestionsTab = React.createClass({
       s: this.props.value
     })
 
+    delete query.p
+
     let linkClasses = classNames({
       'tab-active': this.props.value === this.state.questions.get('sort')
     })

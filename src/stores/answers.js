@@ -13,10 +13,13 @@ const store = Reflux.createStore({
   init () {
     this.isLoading = false
     this.answers = null
+    this.page = 0
   },
 
-  onFetchByUserId () {
+  onFetchByUserId (params) {
+    let options = Object.assign({}, params)
     this.isLoading = true
+    this.page = options.page || 1
     this.refreshState()
   },
 
@@ -65,7 +68,8 @@ const store = Reflux.createStore({
   getState () {
     return new Map({
       isLoading: this.isLoading,
-      answers: this.answers
+      answers: this.answers,
+      page: this.page
     })
   }
 })
