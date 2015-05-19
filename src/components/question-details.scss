@@ -22,6 +22,20 @@
         size: 2em;
       }
     }
+
+    .vote {
+      line-height: 1;
+      color: $color-link;
+      cursor: pointer;
+
+      font: {
+        size: 1.5em;
+      }
+
+      &:hover {
+        color: $color-link-hover;
+      }
+    }
   }
 
   .content {
@@ -32,6 +46,23 @@
 .question-details {
   .question {
     @extend %question-or-answer;
+
+    .favorite {
+      color: $color-link;
+      cursor: pointer;
+
+      font: {
+        size: 1.25em;
+      }
+
+      &.is-favorite {
+        color: #ff0;
+      }
+
+      &:hover {
+        color: $color-link-hover;
+      }
+    }
   }
 
   .answer {

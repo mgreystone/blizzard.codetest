@@ -13,6 +13,7 @@ import {
   SE_SITE,
   SE_FILTER_QUESTIONS,
   SE_FILTER_QUESTION_DETAILS,
+  SE_FILTER_QUESTION_DETAILS_PRIVATE,
   SE_FILTER_USER_PROFILE,
   SE_FILTER_ANSWERS_LIST,
   SE_FILTER_BADGES
@@ -32,8 +33,8 @@ const init = new Promise(resolve => {
   })
 })
 
-function apiRequest (resource) {
-  return request(resource)
+function apiGet (resource) {
+  return request.get(resource)
     .use(prefix)
     .set('Accept', 'application/json')
     .query({
@@ -41,6 +42,30 @@ function apiRequest (resource) {
       site: SE_SITE,
       access_token: localStorage.getItem(LS_KEY_ACCESS_TOKEN)
     })
+}
+
+function apiPost (resource) {
+  return request.post(resource)
+    .use(prefix)
+
+    .set({
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+
+    .send({
+      key: SE_KEY,
+      site: SE_SITE,
+      access_token: localStorage.getItem(LS_KEY_ACCESS_TOKEN)
+    })
+}
+
+function returnBody (res) {
+  return res.body
+}
+
+function returnErrBody (err) {
+  throw err && err.res ? err.res.body : null
 }
 
 export function isAuthenticated () {
@@ -51,11 +76,12 @@ export function authenticate () {
   return init.then(() => {
     return new Promise((resolve, reject) => {
       SE.authenticate({
+        scope: ['write_access', 'private_info'],
         error: reject,
 
         success (data) {
-          resolve()
           localStorage.setItem(LS_KEY_ACCESS_TOKEN, data.accessToken)
+          resolve()
         }
       })
     })
@@ -67,78 +93,136 @@ export function revoke () {
 }
 
 function getQuestionsParams (options) {
+  let filter = SE_FILTER_QUESTIONS
+
+  if (options.withDetails) {
+    filter = isAuthenticated() ? SE_FILTER_QUESTION_DETAILS_PRIVATE : SE_FILTER_QUESTION_DETAILS
+  }
+
   return {
     sort: options.sort,
-    filter: options.withDetails ? SE_FILTER_QUESTION_DETAILS : SE_FILTER_QUESTIONS
+    filter
   }
 }
 
 export function fetchQuestions (options) {
-  return apiRequest('/questions')
+  return apiGet('/questions')
     .query(getQuestionsParams(options))
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function searchQuestions (options) {
-  return apiRequest('/search/advanced')
+  return apiGet('/search/advanced')
     .query(getQuestionsParams(options))
     .query({ q: options.query })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchQuestionById (id, options) {
-  return apiRequest('/questions/' + encodeURIComponent(id))
+  return apiGet('/questions/' + encodeURIComponent(id))
     .query(getQuestionsParams(options))
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchTags () {
-  return apiRequest('/tags')
+  return apiGet('/tags')
     .query({ pagesize: 99 })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchTagWiki (id) {
-  return apiRequest(`/tags/${encodeURIComponent(id)}/wiki`)
-    .then(res => res.body)
+  return apiGet(`/tags/${encodeURIComponent(id)}/wiki`)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchUser (id) {
   let resource = id ? `/users/${encodeURIComponent(id)}` : '/me'
 
-  return apiRequest(resource)
+  return apiGet(resource)
     .query({ filter: SE_FILTER_USER_PROFILE })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchUserQuestions (id) {
   let resource = id ? `/users/${encodeURIComponent(id)}/questions` : '/me/questions'
 
-  return apiRequest(resource)
+  return apiGet(resource)
     .query({ filter: SE_FILTER_QUESTIONS })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchUserAnswers (id) {
   let resource = id ? `/users/${encodeURIComponent(id)}/answers` : '/me/answers'
 
-  return apiRequest(resource)
+  return apiGet(resource)
     .query({ filter: SE_FILTER_ANSWERS_LIST })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchUserBadges (id) {
   let resource = id ? `/users/${encodeURIComponent(id)}/badges` : '/me/badges'
 
-  return apiRequest(resource)
+  return apiGet(resource)
     .query({ filter: SE_FILTER_BADGES })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
 }
 
 export function fetchUserFavoriteQuestions (id) {
   let resource = id ? `/users/${encodeURIComponent(id)}/favorites` : '/me/favorites'
 
-  return apiRequest(resource)
+  return apiGet(resource)
     .query({ filter: SE_FILTER_QUESTIONS })
-    .then(res => res.body)
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function upvoteQuestion (id) {
+  return apiPost(`/questions/${encodeURIComponent(id)}/upvote`)
+    .send({ filter: SE_FILTER_QUESTIONS })
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function downvoteQuestion (id) {
+  return apiPost(`/questions/${encodeURIComponent(id)}/downvote`)
+    .send({ filter: SE_FILTER_QUESTIONS })
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function favoriteQuestion (id) {
+  return apiPost(`/questions/${encodeURIComponent(id)}/favorite`)
+    .send({ filter: SE_FILTER_QUESTIONS })
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function unfavoriteQuestion (id) {
+  return apiPost(`/questions/${encodeURIComponent(id)}/favorite/undo`)
+    .send({ filter: SE_FILTER_QUESTIONS })
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function upvoteAnswer (id) {
+  return apiPost(`/answers/${encodeURIComponent(id)}/upvote`)
+    .send({ filter: SE_FILTER_ANSWERS_LIST })
+    .then(returnBody)
+    .catch(returnErrBody)
+}
+
+export function downvoteAnswer (id) {
+  return apiPost(`/answers/${encodeURIComponent(id)}/downvote`)
+    .send({ filter: SE_FILTER_ANSWERS_LIST })
+    .then(returnBody)
+    .catch(returnErrBody)
 }

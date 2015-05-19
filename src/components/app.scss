@@ -15,10 +15,10 @@ a {
 
   &:link,
   &:visited {
-    color: #47c3ff;    
+    color: $color-link;    
 
     &:hover {
-      color: #fff;
+      color: $color-link-hover;
     }
   }
 }

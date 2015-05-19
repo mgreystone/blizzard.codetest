@@ -13,7 +13,8 @@ const QuestionDetailsRoute = React.createClass({
 
   render () {
     let params = this.context.router.getCurrentParams()
-    let { questionId, answerId } = params
+    let questionId = parseInt(params.questionId, 10)
+    let answerId = params.answerId ? parseInt(params.answerId, 10) : null
 
     return (
       <QuestionDetails questionId={questionId} answerId={answerId} />

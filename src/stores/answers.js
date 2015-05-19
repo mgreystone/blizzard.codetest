@@ -31,6 +31,37 @@ const store = Reflux.createStore({
     this.isLoading = false
   },
 
+  onUpvoteCompleted (data) {
+    this.mergeUpdatedAnswer(data)
+  },
+
+  onUpvoteFailed () {
+    // TODO
+  },
+
+  onDownvoteCompleted (data) {
+    this.mergeUpdatedAnswer(data)
+  },
+
+  onDownvoteFailed () {
+    // TODO
+  },
+
+  mergeUpdatedAnswer (data) {
+    let newAnswer = data.items[0]
+    let id = newAnswer.answer_id
+    if (this.answers) {
+      let items = this.answers.get('items')
+      if (items) {
+        let i = items.findIndex(item => item.get('answer_id') === id)
+        if (i >= 0) {
+          this.answers = this.answers.mergeIn(['items', i], newAnswer)
+          this.refreshState()
+        }
+      }
+    }
+  },
+
   getState () {
     return new Map({
       isLoading: this.isLoading,
