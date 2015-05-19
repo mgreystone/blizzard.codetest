@@ -18,6 +18,8 @@ import Markdown from './markdown'
 import Icon from './icon'
 import Loader from './loader'
 
+import { roundLargeNumber } from '../utils'
+
 const QuestionDetails = React.createClass({
   displayName: 'QuestionDetails',
 
@@ -103,7 +105,7 @@ const QuestionDetails = React.createClass({
                 </div>
               }
 
-              <div className='score'>{score}</div>
+              <div className='score'>{roundLargeNumber(score)}</div>
 
               {!isAuthenticated ? null :
                 <div>
@@ -143,7 +145,7 @@ const QuestionDetails = React.createClass({
                     </div>
                   }
 
-                  <div className='score'>{score}</div>
+                  <div className='score'>{roundLargeNumber(score)}</div>
 
                   {!isAuthenticated ? null :
                     <div className='vote'>

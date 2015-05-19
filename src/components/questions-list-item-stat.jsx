@@ -4,6 +4,8 @@ import './questions-list-item-stat.scss'
 
 import React from 'react'
 
+import { roundLargeNumber } from '../utils'
+
 const QuestionsListItemStat = React.createClass({
   displayName: 'QuestionsListItemStat',
 
@@ -19,7 +21,7 @@ const QuestionsListItemStat = React.createClass({
     return (
       <div className='questions-list-item-stat'>
         <div className='value'>
-          {value}
+          {roundLargeNumber(value)}
         </div>
 
         <div className='label'>
