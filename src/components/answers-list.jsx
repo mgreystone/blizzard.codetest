@@ -8,6 +8,7 @@ import Reflux from 'reflux'
 import answersStore from '../stores/answers'
 
 import AnswersListItem from './answers-list-item'
+import Loader from './loader'
 
 const AnswersList = React.createClass({
   displayName: 'AnswersList',
@@ -22,11 +23,13 @@ const AnswersList = React.createClass({
 
     return (
       <div className='answers-list'>
-        {!items ? null : items.map(item => {
-          return (
-            <AnswersListItem key={item.get('answer_id')} answer={item} />
-          )
-        })}
+        <Loader loaded={!answers.get('isLoading')}>
+          {!items ? null : items.map(item => {
+            return (
+              <AnswersListItem key={item.get('answer_id')} answer={item} />
+            )
+          })}
+        </Loader>
       </div>
     )
   }

@@ -1,0 +1,21 @@
+{
+  "name": "blizzard.codetest",
+  "version": "1.0.0",
+  "homepage": "https://github.com/mgreystone/blizzard.codetest",
+  "authors": [
+    "Markus Greystone <markus.greystone@gmail.com>"
+  ],
+  "description": "Code test for front end engineer position",
+  "main": "index.js",
+  "license": "ISC",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "spinkit": "~1.0.1"
+  }
+}

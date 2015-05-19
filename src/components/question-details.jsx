@@ -16,6 +16,7 @@ import authenticationStore from '../stores/authentication'
 
 import Markdown from './markdown'
 import Icon from './icon'
+import Loader from './loader'
 
 const QuestionDetails = React.createClass({
   displayName: 'QuestionDetails',
@@ -91,73 +92,75 @@ const QuestionDetails = React.createClass({
 
     return (
       <div className='question-details'>
-        <h1 className='page-title'>{title}</h1>
+        <Loader loaded={!this.state.questions.get('isLoading')}>
+          <h1 className='page-title'>{title}</h1>
 
-        <div className='question'>
-          <div className='controls'>
-            {!isAuthenticated ? null :
-              <div className='vote'>
-                <Icon glyph='caret-up' onClick={this.onClickUpvoteQuestion} />
-              </div>
-            }
-
-            <div className='score'>{score}</div>
-
-            {!isAuthenticated ? null :
-              <div>
+          <div className='question'>
+            <div className='controls'>
+              {!isAuthenticated ? null :
                 <div className='vote'>
-                  <Icon glyph='caret-down' onClick={this.onClickDownvoteQuestion} />
+                  <Icon glyph='caret-up' onClick={this.onClickUpvoteQuestion} />
                 </div>
+              }
 
-                <div className={classnames({ favorite: true, 'is-favorite': favorited })}>
-                  {favorited ?
-                    <Icon glyph='star' onClick={this.onClickUnfavoriteQuestion} /> :
-                    <Icon glyph='star-o' onClick={this.onClickFavoriteQuestion} />
-                  }
+              <div className='score'>{score}</div>
+
+              {!isAuthenticated ? null :
+                <div>
+                  <div className='vote'>
+                    <Icon glyph='caret-down' onClick={this.onClickDownvoteQuestion} />
+                  </div>
+
+                  <div className={classnames({ favorite: true, 'is-favorite': favorited })}>
+                    {favorited ?
+                      <Icon glyph='star' onClick={this.onClickUnfavoriteQuestion} /> :
+                      <Icon glyph='star-o' onClick={this.onClickFavoriteQuestion} />
+                    }
+                  </div>
                 </div>
-              </div>
-            }
-          </div>
-
-          <div className='content'>
-            <Markdown value={body} />
-          </div>
-        </div>
-
-        <h2>{numAnswers} Answer{numAnswers === 1 ? '' : 's'}</h2>
-
-        {answers.sort(answerSorter).map(item => {
-          let id = item.get('answer_id')
-          let body = item.get('body_markdown')
-          let score = item.get('score')
-          let isAccepted = item.get('is_accepted')
-
-          return (
-            <div key={id} ref={`answer_${id}`} className='answer'>
-              <div className='controls'>
-                {!isAuthenticated ? null :
-                  <div className='vote'>
-                    <Icon glyph='caret-up' onClick={this.onClickUpvoteAnswer.bind(this, id)} />
-                  </div>
-                }
-
-                <div className='score'>{score}</div>
-
-                {!isAuthenticated ? null :
-                  <div className='vote'>
-                    <Icon glyph='caret-down' onClick={this.onClickDownvoteAnswer.bind(this, id)} />
-                  </div>
-                }
-
-                {isAccepted ? <div className='check'><Icon glyph='check' /></div> : null}
-              </div>
-
-              <div className='content'>
-                <Markdown value={body} />
-              </div>
+              }
             </div>
-          )
-        })}
+
+            <div className='content'>
+              <Markdown value={body} />
+            </div>
+          </div>
+
+          <h2>{numAnswers} Answer{numAnswers === 1 ? '' : 's'}</h2>
+
+          {answers.sort(answerSorter).map(item => {
+            let id = item.get('answer_id')
+            let body = item.get('body_markdown')
+            let score = item.get('score')
+            let isAccepted = item.get('is_accepted')
+
+            return (
+              <div key={id} ref={`answer_${id}`} className='answer'>
+                <div className='controls'>
+                  {!isAuthenticated ? null :
+                    <div className='vote'>
+                      <Icon glyph='caret-up' onClick={this.onClickUpvoteAnswer.bind(this, id)} />
+                    </div>
+                  }
+
+                  <div className='score'>{score}</div>
+
+                  {!isAuthenticated ? null :
+                    <div className='vote'>
+                      <Icon glyph='caret-down' onClick={this.onClickDownvoteAnswer.bind(this, id)} />
+                    </div>
+                  }
+
+                  {isAccepted ? <div className='check'><Icon glyph='check' /></div> : null}
+                </div>
+
+                <div className='content'>
+                  <Markdown value={body} />
+                </div>
+              </div>
+            )
+          })}
+        </Loader>
       </div>
     )
   }

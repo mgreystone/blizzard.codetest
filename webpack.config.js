@@ -31,7 +31,8 @@ module.exports = {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract('style', cssLoaderBase + '!sass?sourceMap' +
           '&includePaths[]=' + path.resolve(__dirname, 'node_modules/bourbon/app/assets/stylesheets')) +
-          '&includePaths[]=' + path.resolve(__dirname, 'node_modules')
+          '&includePaths[]=' + path.resolve(__dirname, 'node_modules') +
+          '&includePaths[]=' + path.resolve(__dirname, 'bower_components')
       },
       {
         test: /\.css$/,

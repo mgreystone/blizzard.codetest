@@ -1,0 +1,19 @@
+@import '../styles/variables';
+$spinkit-spinner-color: $color-link;
+@import 'spinkit/scss/spinners/3-wave';
+
+.sk-spinner {
+  &.sk-spinner-wave {
+    margin: {
+      top: 1.5ex;
+      bottom: 1.5ex;
+    }
+
+    div {
+      margin: {
+        right: 2px;
+        left: 2px;
+      }
+    }
+  }
+}
