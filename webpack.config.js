@@ -74,6 +74,12 @@ module.exports = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
 
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src/index.html'),
       title: 'Blizzard Code Test'
