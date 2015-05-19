@@ -1,5 +1,7 @@
 'use strict'
 
+import './questions-search-form.scss'
+
 import React from 'react'
 import Reflux from 'reflux'
 import { Navigation } from 'react-router'

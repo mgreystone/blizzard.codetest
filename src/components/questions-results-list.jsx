@@ -1,5 +1,7 @@
 'use strict'
 
+import './questions-search-results-list.scss'
+
 import React from 'react'
 
 import questionsActions from '../actions/questions'
@@ -44,7 +46,7 @@ const QuestionsResultsList = React.createClass({
         <div className='questions-results-list'>
           <h1 className='page-title'>Search</h1>
 
-          <QuestionsSearchForm />
+          <QuestionsSearchForm showButton />
 
           <QuestionsTabPanel>
             <QuestionsTab value='relevance' label='Relevance' />
